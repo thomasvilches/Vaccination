@@ -1,0 +1,16 @@
+The sexual interaction tree.
+
+The mosquito creation, distribuitions age, life span and bites.
+
+The sexual interaction program. --
+You are verifying if you have a couple Sus-Inf and then you test if the relation occurs, but should not the sex happen for everybody? because the number of times one had it is important to the prob of having it.
+
+
+
+LogNormal?
+
+--- it lacks
+
+Calculate ProbBite
+
+
