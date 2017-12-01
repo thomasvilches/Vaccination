@@ -147,7 +147,7 @@ main(int argc,char *argv[]){
 //getchar();
       for(timecount=0;timecount<182;timecount++){
 
-            fprintf(ar,"%d %d %d %d %d %d %d\n",182*numberofseason+timecount,UpDating[0],UpDating[1],UpDating[2],UpDating[3],UpDating[4],UpDating[5]);
+            fprintf(ar,"%d %d %d %d %d %d %d\n",182*numberofseason+timecount,UpDating[0],UpDating[1],UpDating[2],UpDating[3],UpDating[4],UpDating[5]);//time,latent, asymp, symp, rec, latent Bite, latent sex
             fprintf(arquPregBaby,"%d %d %d %d %d %d %d %d %d\n",182*numberofseason+timecount,PregBaby[0],PregBaby[1],PregBaby[2],PregBaby[3],NumPregInf[0],NumPregInf[1],NumPregInf[2],NumPregInf[3]);
 
             for(i=0;i<4;i++) NumPregInf[i]=0;
@@ -159,10 +159,7 @@ main(int argc,char *argv[]){
 
                 Sexual_interaction(H);
 
-
                 number_of_microcephaly=number_of_microcephaly+update_pregnant(H,NumberInAge,PregAgeGroup,NumPregInf,VacVector,PregBaby);
-
-
 
                 increase_timestateH(H,VacVector);
 
@@ -189,7 +186,7 @@ main(int argc,char *argv[]){
     PregBaby[0]=PregBaby[1]=PregBaby[2]=PregBaby[3]=0;
     number_of_microcephaly=number_of_microcephaly+CountingLast(H,PregBaby);
 
-
+    fprintf(ar,"%d %d %d %d %d %d %d\n",182*numberofseason+timecount,UpDating[0],UpDating[1],UpDating[2],UpDating[3],UpDating[4],UpDating[5]);//time,latent, asymp, symp, rec, latent Bite, latent sex
     fprintf(arquPregBaby,"%d %d %d %d %d %d %d %d %d\n",182*numberofseason+timecount,PregBaby[0],PregBaby[1],PregBaby[2],PregBaby[3],NumPregInf[0],NumPregInf[1],NumPregInf[2],NumPregInf[3]);
     fprintf(arq,"%d %d %d %d %d %d %d\n",sim,number_of_microcephaly,VacVector[0],VacVector[1],VacVector[2],VacVector[3],TotalNumberofPreg);
     //Number of Babies with microcephaly, number of infected pregnants in 1st 2nd and 3rd trimester, number of vaccinated people for age, number of vaccinated pregnant, number of immune vac people, number of immune vac preg

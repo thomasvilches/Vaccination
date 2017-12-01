@@ -46,16 +46,21 @@ void increase_timestateH(struct Human *H,int VacVector[4]){
     if(H[i].timeinstate>H[i].statetime){
 
       if(H[i].health==2){
-        rd=(float)rand()/RAND_MAX;
-        rn=rd*(ProbLatentToASymptomaticMax-ProbLatentToASymptomaticMin)+ProbLatentToASymptomaticMin;
-        rd=(float)rand()/RAND_MAX;
-        if(rd<rn) H[i].swap=3;
-        else{
-          //lets check if it will be isolated
-          rd=(float)rand()/RAND_MAX;
-          if(rd<ProbIsolationSymptomatic) H[i].swap=5;
-          else H[i].swap=4;
-        }//close else
+
+      if(H[i].Vaccination>0) H[i].swap=3;
+      else{
+            rd=(float)rand()/RAND_MAX;
+            rn=rd*(ProbLatentToASymptomaticMax-ProbLatentToASymptomaticMin)+ProbLatentToASymptomaticMin;
+            rd=(float)rand()/RAND_MAX;
+            if(rd<rn) H[i].swap=3;
+            else{
+              //lets check if it will be isolated
+              rd=(float)rand()/RAND_MAX;
+              if(rd<ProbIsolationSymptomatic) H[i].swap=5;
+              else H[i].swap=4;
+            }//close else
+
+        }
       }//close if latent
 
       else{

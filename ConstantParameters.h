@@ -53,10 +53,10 @@
 
 //#define number_pregnant 150
 #define Time_Preg_Max 270
-#define Prob_Microcephaly_1_max 0.0088
-#define Prob_Microcephaly_1_min 0.132
-#define Prob_Microcephaly_2_max 0.0038
-#define Prob_Microcephaly_2_min 0.019
+#define Prob_Microcephaly_2_min 0.0028
+#define Prob_Microcephaly_2_max 0.0132
+#define Prob_Microcephaly_1_min 0.0038
+#define Prob_Microcephaly_1_max 0.019
 
 
 #define Vac_Cover_Norm 0.0
@@ -66,7 +66,7 @@
 #define Max_age_vac 45
 #define Min_age_vac_preg 15
 #define Max_age_vac_preg 50
-#define vac_eff_min 1.0
-#define vac_eff_max 1.0
+#define vac_eff_min 0.7
+#define vac_eff_max 0.9
 
 #define NR_END 1
