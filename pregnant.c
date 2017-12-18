@@ -78,13 +78,13 @@ void setup_pregnant(struct Human *H,int NumberInAge[7],int **PregAgeGroup,float 
 }
 
 
-void ProbMicrocephaly(struct Human *H,int i,int NumPregInf[4]){
+void ProbMicrocephaly(struct Human *H,int i){
 
   float rd,rn;
   if(H[i].pregnant==1){
   //printf("aaaa %d\n",H[i].timepregnant);
     if(H[i].timepregnant<=90){
-        NumPregInf[0]++;
+        //NumPregInf[0]++;
         rd=(float)rand()/(RAND_MAX+1.);
 
         rn=rd*(Prob_Microcephaly_1_max-Prob_Microcephaly_1_min)+Prob_Microcephaly_1_min;
@@ -98,7 +98,7 @@ void ProbMicrocephaly(struct Human *H,int i,int NumPregInf[4]){
     else{
         if(H[i].timepregnant<=180){
 
-            NumPregInf[1]++;
+            //NumPregInf[1]++;
             rd=(float)rand()/(RAND_MAX+1.);
 
             rn=rd*(Prob_Microcephaly_2_max-Prob_Microcephaly_2_min)+Prob_Microcephaly_2_min;
@@ -110,7 +110,7 @@ void ProbMicrocephaly(struct Human *H,int i,int NumPregInf[4]){
 
         }
         else{
-            NumPregInf[2]++;
+            //NumPregInf[2]++;
             H[i].InfTrim=3;
 //printf("i=%d\n",i);
 //printf("%d %d %d %d %d\n",H[i].health,H[i].Vaccination,H[i].pregnant,H[i].timepregnant,H[i].timevaccination);
@@ -120,7 +120,7 @@ void ProbMicrocephaly(struct Human *H,int i,int NumPregInf[4]){
   }
 }
 
-int update_pregnant(struct Human *H,int NumberInAge[7],int **PregAgeGroup,int NumPregInf[4],int VacVector[4],int PregBaby[4]){
+int update_pregnant(struct Human *H,int NumberInAge[7],int **PregAgeGroup,int VacVector[4],int PregBaby[4]){
 
     int i,number_of_borns,rd,aux;
     float rn,ran;
@@ -207,7 +207,7 @@ int update_pregnant(struct Human *H,int NumberInAge[7],int **PregAgeGroup,int Nu
                                     }
                                 }
                             }
-                            NumPregInf[3]++;
+
                         }
 
                             else{
@@ -279,7 +279,7 @@ int update_pregnant(struct Human *H,int NumberInAge[7],int **PregAgeGroup,int Nu
                              }
                            }//close health
                         else{
-                                    NumPregInf[3]++;
+
                                     if(H[i].health<4){
 
                                             if(H[i].Vaccination==0){

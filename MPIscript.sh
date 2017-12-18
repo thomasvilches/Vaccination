@@ -6,13 +6,10 @@ read cores
 
 simpcore=$(($simul/$cores));
 
-gcc -O3 mainTest.c -w -lm
+mpicc -o mpitest main2.c -w -lm
 
 
-
-for i in $(seq 0 $(($cores-1)))
-do
-    ./a.out $(($simpcore*$i)) $(($simpcore*$i+$simpcore-1)) $RANDOM $i&
+mpirun -np $cores mpitest $simpcore
     
-done
+
     

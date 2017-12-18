@@ -1,4 +1,3 @@
-//#include"mpi.h"
 #include"heading.h"
 #include"log_normal.c"
 #include"popStruc.c"
@@ -9,16 +8,19 @@
 #include"functions.c"
 #include"pregnant.c"
 #include"vaccination.c"
-//# include <omp.h>
+#include"time.h"
+
+int size, rank;
+
 main(int argc,char *argv[]){
 
       //struct Human *H;
       //struct Mosquito *M;
     int i,j,controlSeason,timecount,d,rn,susc,latent,symp,asymp,sympiso,rec,numberofseason,sim,begin,end,seed,UpDating[6],core,NumberInAge[7],**PregAgeGroup,number_of_microcephaly,aux2,aux3,aux4;
-    int NumPregInf[3],VacVector[4],PregBaby[4],immunity_number;
+    int NumPregInf[3],VacVector[4],PregBaby[4],immunity_number,TotalSimulations;
     float dist[2][60],rd,distAge[60],soma,distPreg[7];
     FILE *ar,*arq,*arqu,*arquPregBaby;
-    char name[30],namecore[30],namePreg[30],directory[30];
+    char name[60],namecore[60],namePreg[60],directory[30];
 
     arqu=fopen("distPreg.dat","r");
     ar=fopen("summer.txt","r");
@@ -33,24 +35,36 @@ main(int argc,char *argv[]){
 
 
 
-    begin=atoi(argv[1]);
-    end=atoi(argv[2]);
-    seed=atoi(argv[3]);
-    core=atoi(argv[4]);
 
-    printf("%d %d %d %d\n",begin,end,seed,core);
+    //begin=atoi(argv[1]);
+    //end=atoi(argv[2]);
+    //seed=atoi(argv[3]);
+    TotalSimulations=atoi(argv[1]);
+
+    MPI_Init(&argc,&argv);
+    MPI_Comm_size(MPI_COMM_WORLD,&size);
+    MPI_Comm_rank(MPI_COMM_WORLD,&rank);
+
+    //printf("You have %d cores, how many simulations? THey must be multiple",size);
+    //scanf("%d",&TotalSimulations);
+
+    core=rank;
+
+    printf("%d %d %d\n",rank,rank*TotalSimulations,(rank+1)*TotalSimulations-1);
     srand(seed);
 
     PregAgeGroup=Alocar_matriz_inteira(7,N);
   /////starting simulations
 
   //getchar();
-  sprintf(directory,"teste8/");
+  sprintf(directory,"teste9/");
   sprintf(namecore,"%sNoM%d.dat",directory,core);
 
   arq=fopen(namecore,"w");
 
-  for(sim=begin;sim<=end;sim++){
+  for(sim=rank*TotalSimulations;sim<=(rank+1)*TotalSimulations-1;sim++){
+  printf("%d %d %d %d\n",rank,sim,rank*TotalSimulations,(rank+1)*TotalSimulations-1);
+
     struct Human *H=malloc(N*sizeof(struct Human));//Hvector(0,N-1);
     struct Mosquito *M=malloc(NM*sizeof(struct Mosquito));//Mvector(0,NM-1);
 
@@ -148,7 +162,7 @@ main(int argc,char *argv[]){
       for(timecount=0;timecount<182;timecount++){
 
             fprintf(ar,"%d %d %d %d %d %d %d\n",182*numberofseason+timecount,UpDating[0],UpDating[1],UpDating[2],UpDating[3],UpDating[4],UpDating[5]);//time,latent, asymp, symp, rec, latent Bite, latent sex
-            fprintf(arquPregBaby,"%d %d %d %d %d %d\n",182*numberofseason+timecount,PregBaby[0],PregBaby[1],PregBaby[2],PregBaby[3]);
+            fprintf(arquPregBaby,"%d %d %d %d %d\n",182*numberofseason+timecount,PregBaby[0],PregBaby[1],PregBaby[2],PregBaby[3]);
 
 
             for(i=0;i<6;i++) UpDating[i]=0;
@@ -199,7 +213,7 @@ main(int argc,char *argv[]){
     free(M);
     free(H);
   }//close sim
-
+MPI_Finalize();
 
 }
 

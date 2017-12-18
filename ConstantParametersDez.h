@@ -30,8 +30,8 @@
 #define h_symptomatic_max 6
 #define h_symptomatic_min 3
 
-#define ProbLatentToASymptomaticMax 1.0
-#define ProbLatentToASymptomaticMin 1.0
+#define ProbLatentToASymptomaticMax 0.8
+#define ProbLatentToASymptomaticMin 0.4
 
 #define m_lognormal_latent_shape 2.28 // ## mean 10
 #define m_lognormal_latent_scale 0.21
@@ -59,8 +59,8 @@
 #define Prob_Microcephaly_1_max 0.019
 
 
-#define Vac_Cover_Norm 0.0
-#define Vac_Cover_Preg 0.0
+//#define Vac_Cover_Norm 0.0
+//#define Vac_Cover_Preg 0.0
 #define Time_of_immunization 0
 #define Min_age_vac 9
 #define Max_age_vac 60

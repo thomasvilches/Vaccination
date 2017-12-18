@@ -33,7 +33,7 @@ void BiteTransmission(struct Human *H,struct Mosquito *M){
 	    else vaccine_reduction=0;
 
         rd=(float)rand()/(RAND_MAX+1.);
-	    if(rd<prob_infection_MtoH*(1-vaccine_reduction)){
+	    if(rd<prob_infection_MtoH*(1-vaccine_reduction)*(1-H[NonIsolated[random]].preex_immunity)){
 	      H[NonIsolated[random]].swap=2;
 	      H[NonIsolated[random]].latentfrom=1;
 	    }//close if rand
@@ -170,7 +170,7 @@ void Sexual_interaction(struct Human *H){
 
 
 	rd=(float)rand()/(RAND_MAX+1.);
-	if(rd<proboftransmission*(1.0-vaccination_reduction)){
+	if(rd<proboftransmission*(1.0-vaccination_reduction)*(1-H[i].preex_immunity)){
 
 	 // printf("partner=%d %d\n",H[i].partner,i);
 	   //getchar();

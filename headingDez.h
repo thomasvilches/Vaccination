@@ -4,7 +4,7 @@
 #include<stdlib.h>
 
 #include<time.h>
-#include"ConstantParameters.h"
+#include"ConstantParametersDez.h"
 
 struct Human{
   int health;  //1-susc, 2-lat, 3- Asymp, 4- Symp, 5- SympIso, 6- Rec, 7- Dead.... -1 undef
@@ -80,7 +80,7 @@ void nrerror(char error_text[]);
 int max(int a,int b);
 int min(int a,int b);
 int season,TotalNumberofPreg;//summer= 0 winter = 1
-
+float Vac_Cover_Norm,Vac_Cover_Preg;
 
 ////////////////////////////////////////
 float Poisson(float xm);

@@ -1,5 +1,5 @@
 //#include"mpi.h"
-#include"heading.h"
+#include"headingDez.h"
 #include"log_normal.c"
 #include"popStruc.c"
 #include"parameters.c"
@@ -15,10 +15,10 @@ main(int argc,char *argv[]){
       //struct Human *H;
       //struct Mosquito *M;
     int i,j,controlSeason,timecount,d,rn,susc,latent,symp,asymp,sympiso,rec,numberofseason,sim,begin,end,seed,UpDating[6],core,NumberInAge[7],**PregAgeGroup,number_of_microcephaly,aux2,aux3,aux4;
-    int NumPregInf[3],VacVector[4],PregBaby[4],immunity_number;
+    int NumPregInf[3],VacVector[4],PregBaby[4],immunity_number,CovPreg,CovNorm;
     float dist[2][60],rd,distAge[60],soma,distPreg[7];
     FILE *ar,*arq,*arqu,*arquPregBaby;
-    char name[30],namecore[30],namePreg[30],directory[30];
+    char name[50],namecore[50],namePreg[50],directory[30];
 
     arqu=fopen("distPreg.dat","r");
     ar=fopen("summer.txt","r");
@@ -37,15 +37,20 @@ main(int argc,char *argv[]){
     end=atoi(argv[2]);
     seed=atoi(argv[3]);
     core=atoi(argv[4]);
+    CovPreg=atoi(argv[5]);
+    CovNorm=atoi(argv[6]);
 
-    printf("%d %d %d %d\n",begin,end,seed,core);
+    Vac_Cover_Preg=CovPreg/100.0;
+    Vac_Cover_Norm=CovNorm/100.0;
+
+    printf("%d %d %d %d %f %f\n",begin,end,seed,core,Vac_Cover_Norm,Vac_Cover_Preg);
     srand(seed);
 
     PregAgeGroup=Alocar_matriz_inteira(7,N);
   /////starting simulations
 
   //getchar();
-  sprintf(directory,"teste8/");
+  sprintf(directory,"teste10/Cov%d/GCov%d/",CovPreg,CovNorm);
   sprintf(namecore,"%sNoM%d.dat",directory,core);
 
   arq=fopen(namecore,"w");
@@ -54,10 +59,10 @@ main(int argc,char *argv[]){
     struct Human *H=malloc(N*sizeof(struct Human));//Hvector(0,N-1);
     struct Mosquito *M=malloc(NM*sizeof(struct Mosquito));//Mvector(0,NM-1);
 
-    sprintf(namePreg,"%sPregBaby%d.dat",directory,sim);
+    //sprintf(namePreg,"%sPregBaby%d.dat",directory,sim);
     sprintf(name,"%stt%d.dat",directory,sim);//name of the file
 
-    arquPregBaby=fopen(namePreg,"w");
+    //arquPregBaby=fopen(namePreg,"w");
 
     TotalNumberofPreg=0;
     for(i=0;i<4;i++) NumPregInf[i]=0;
@@ -148,7 +153,7 @@ main(int argc,char *argv[]){
       for(timecount=0;timecount<182;timecount++){
 
             fprintf(ar,"%d %d %d %d %d %d %d\n",182*numberofseason+timecount,UpDating[0],UpDating[1],UpDating[2],UpDating[3],UpDating[4],UpDating[5]);//time,latent, asymp, symp, rec, latent Bite, latent sex
-            fprintf(arquPregBaby,"%d %d %d %d %d %d\n",182*numberofseason+timecount,PregBaby[0],PregBaby[1],PregBaby[2],PregBaby[3]);
+            //fprintf(arquPregBaby,"%d %d %d %d %d %d\n",182*numberofseason+timecount,PregBaby[0],PregBaby[1],PregBaby[2],PregBaby[3]);
 
 
             for(i=0;i<6;i++) UpDating[i]=0;
@@ -187,7 +192,7 @@ main(int argc,char *argv[]){
     number_of_microcephaly=number_of_microcephaly+CountingLast(H,PregBaby);
 
     fprintf(ar,"%d %d %d %d %d %d %d\n",182*numberofseason+timecount,UpDating[0],UpDating[1],UpDating[2],UpDating[3],UpDating[4],UpDating[5]);//time,latent, asymp, symp, rec, latent Bite, latent sex
-    fprintf(arquPregBaby,"%d %d %d %d %d \n",182*numberofseason+timecount,PregBaby[0],PregBaby[1],PregBaby[2],PregBaby[3]);
+    //fprintf(arquPregBaby,"%d %d %d %d %d \n",182*numberofseason+timecount,PregBaby[0],PregBaby[1],PregBaby[2],PregBaby[3]);
 
     immunity_number=0;
 
@@ -195,7 +200,7 @@ main(int argc,char *argv[]){
 
     fprintf(arq,"%d %d %d %d %d %d %d %d %d %d %d\n",sim,number_of_microcephaly,VacVector[0],VacVector[1],VacVector[2],VacVector[3],NumPregInf[0],NumPregInf[1],NumPregInf[2],TotalNumberofPreg,immunity_number);
     //Simulation, Number of Babies with microcephaly,number of vaccinated people for age, number of vaccinated pregnant, number of immune vac people, number of immune vac preg,AsympPreg,SympPreg,SympIsoPreg,TotalPreg,PreexImmun
-    fclose(arquPregBaby);
+    //fclose(arquPregBaby);
     free(M);
     free(H);
   }//close sim

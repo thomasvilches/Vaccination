@@ -1,0 +1,35 @@
+#!/bin/bash
+
+echo "number of simulations and number of core, they must be multiples"
+read simul
+read cores
+
+simpcore=$(($simul/$cores));
+
+gcc -O3 mainDez.c -w -lm
+
+GCov=(0 10 30 50)
+echo "ok"
+#mkdir teste10
+
+for j in $(seq 60 10 90)
+do
+    mkdir teste10/Cov$j
+    for k in $(seq 0 3)
+    do
+	mkdir teste10/Cov$j/GCov${GCov[$k]}
+	for i in $(seq 0 $(($cores-1)))
+	do
+	    ./a.out $(($simpcore*$i)) $(($simpcore*$i+$simpcore-1)) $RANDOM $i $j ${GCov[$k]}&
+	    
+	done
+
+	test=$(ps aux | grep "a.out" | wc -l)
+	while [ $test -gt 1 ];do
+#echo $test
+		sleep 60s
+		test=$(ps aux | grep "a.out" | wc -l)
+	done
+    done
+
+done

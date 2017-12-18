@@ -1,6 +1,6 @@
 void set_up_humans(struct Human H[N]){
 
-  float x;
+  float x,RANDOM;
 
     float dist_men[7][6]= {{0.167, 0.334, 0.563, 0.792, 0.896, 1},    //15-24
 			   {0.109,	0.572,	0.7575,	0.943,	0.9725,	1},//25-29
@@ -44,6 +44,12 @@ void set_up_humans(struct Human H[N]){
     H[i].PregnantAgeGroup=-1;
     H[i].InfTrim=-1;
     H[i].VacEff=(vac_eff_max-vac_eff_min)*((float)rand()/RAND_MAX)+vac_eff_min;
+    H[i].preex_immunity=0;
+    RANDOM=(float)rand()/RAND_MAX;
+    if(RANDOM<=previous_immunity){
+        H[i].preex_immunity=1;
+    }
+
   }
 
   for(i=0;i<N;i++){

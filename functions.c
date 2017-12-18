@@ -106,11 +106,10 @@ void update_human(struct Human *H,int UpDating[6],int NumPregInf[3],int VacVecto
       H[i].timeinstate=0;
       H[i].swap=-1;
       UpDating[0]++;
-      if(H[i].latentfrom==1) UpDating[4]++;
-      else{ UpDating[5]++;
+
      // printf("error = %d",i);
-      }
-      ProbMicrocephaly(H,i,NumPregInf);
+
+      ProbMicrocephaly(H,i);
     }//close if swap 2
     else{
 
@@ -125,7 +124,9 @@ void update_human(struct Human *H,int UpDating[6],int NumPregInf[3],int VacVecto
         H[i].sexprobability=rd*(sextransMax-sextransMin)+sextransMin;
         H[i].timeinstate=0;
         H[i].swap=-1;
-        UpDating[1]++;
+        if(H[i].latentfrom==1) UpDating[1]++;
+        else{ UpDating[4]++; }
+        if(H[i].pregnant==1) NumPregInf[0]++;
 
       }//close if
       else{
@@ -140,7 +141,10 @@ void update_human(struct Human *H,int UpDating[6],int NumPregInf[3],int VacVecto
           H[i].sexprobability=rd*(sextransMax-sextransMin)+sextransMin;
           H[i].timeinstate=0;
           H[i].swap=-1;
-          UpDating[2]++;
+
+          if(H[i].latentfrom==1) UpDating[2]++;
+        else{ UpDating[5]++; }
+          if(H[i].pregnant==1) NumPregInf[1]++;
         }//close if
         else{
           if(H[i].swap==5){
@@ -154,7 +158,9 @@ void update_human(struct Human *H,int UpDating[6],int NumPregInf[3],int VacVecto
             H[i].sexprobability=rd*(sextransMax-sextransMin)+sextransMin;
             H[i].timeinstate=0;
             H[i].swap=-1;
-            UpDating[2]++;
+            if(H[i].latentfrom==1) UpDating[2]++;
+            else{ UpDating[5]++; }
+            if(H[i].pregnant==1) NumPregInf[2]++;
           }//close if
           else{
             if(H[i].swap==6){
